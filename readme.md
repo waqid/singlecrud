@@ -1,0 +1,2 @@
+###html meta swicher by Göran Andersson http://jsfiddle.net/Guffa/bhnWR/ based on https://stackoverflow.com/questions/13389751/change-tag-using-javascript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+###

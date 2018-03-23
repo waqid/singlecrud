@@ -9,30 +9,103 @@
 		/*Custom CSS*/
 		.title,header{text-align:center}a,header{text-decoration:none}body,html,main{font-family:helvetica;display:block}main{margin-left:20%;margin-right:20%;margin-top:10vh}header{font-size:1.3em;color:#ccd;margin-bottom:16px;padding:16px;border-bottom:solid 2px #eee}.data p,button,input{display:inline-block;padding:8px;margin:2px;border:6px solid #fff;border-radius:100px;box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)}.data p,input[type=text]{width:256px;color:#666;padding-left:16px;font-weight:700}.data p{color:#6A5ACD}.danger,.update,a,footer p{color:#fff}input:active,input:focus,input:hover,input:visited{background-color:#303030;border-color:#282828;color:#fff;font-weight:700}.data{padding:8px 0}.danger{background-color:tomato;border-color:tomato}.danger:hover{background-color:red;border-color:red}.update{background-color:#40e0d0;border-color:#40e0d0}.update:hover{background-color:#00ced1;border-color:#00ced1}.new{background-color:pink;border-color:pink}::-webkit-input-placeholder{color:#fff;font-weight:700}::-moz-placeholder{color:#fff;font-weight:700}:-ms-input-placeholder{color:#fff;font-weight:700}:-moz-placeholder{color:#fff;font-weight:700}a{border-bottom:2px dotted pink;font-weight:700}button{padding-right:16px;padding-left:16px;font-weight:700}::placeholder{cplor:#eee}footer{position:absolute;bottom:0;padding:12px 0;background-color:#00ced1;width:100%}footer p{border:none;padding:12px}
 	</style>
+	<script>
+		function switcher(){
+			var d = document.createElement('input');
+			var e = document.getElementsByTagName('p')[0];
+			d.innerHTML = e.innerHTML;
+			e.parentNode.insertBefore(d, e);
+			console.log(e.innerHTML);
+			e.parentNode.removeChild(e);
+			console.log(e.innerHTML);
+		}
+	</script>
 </head>
 <body>
 	<header>
 		Single File CRUD (Cek, Racocok, Uwahi, Dadi!)
 	</header>
-	<main>
+	<main> <!--onclick="getId(event)"-->
 		<div class="content">
 			<h3>Todo List</h3>
+			<!--div id=dummy></div>
 			<div class="data">
-				<p>Data satu</p><button class="danger">Hapus</button>
+				<form><input id="a" type="text" name="name" value="Data Satu"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
 			</div>
 			<div class="data">
-				<p>Data dua</p><button class="danger">Hapus</button>
+				<form><input id="b" type="text" name="name" value="Data Dua"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
 			</div>
 			<div class="data">
-				<form><input type="text" name="name" value="Data tiga" autofocus="autofocus"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
+				<form><input  class="each"type="text" name="name" value="Data Tiga" autofocus="autofocus"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
 			</div>
 			<div class="data">
-			<form><input class="new" type="text" name="name" placeholder="Ketik di sini lalu tekan enter"></form>
-		</div>
+				<form><input class="new" type="text" name="name" placeholder="Ketik di sini"><button class="update">Tambah</button></form>
+			</div-->
+			<div id="todoContainer"></div>
 		</div>
 	</main>
 	<footer>
 		<p>Kumpul Koding Chapter I 03/23/2018 <a href="https://kesatriakeyboard.com">Kesatria Keyboard</a> and <a href="https://waqid.id">Waqid ID</a> </p>
 	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.5/dist/handlebars.min.js"></script>
+	
+	<script>
+		var m = {
+			'pets': [
+				{
+					'name' : 'timi',
+				},{
+					'name' : 'blacko',
+				}
+				
+			]
+		}
+	</script>
+
+	<script id="todoTemplate" type="text/x-handlebars-template">
+		{{#each pets}}
+			<h1>{{name}}</h1>
+		{{/each}}
+	</script>
+	<script>
+		/* var ourRequest = new XMLHttpRequest();
+		ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/pets-data.json');
+		ourRequest.onload = function() {
+		  if (ourRequest.status >= 200 && ourRequest.status < 400) {
+		    var data = JSON.parse(ourRequest.responseText);
+		    createHTML(data);
+		  } else {
+		    console.log("We connected to the server, but it returned an error.");
+		  }
+		};
+
+		ourRequest.onerror = function() {
+		  console.log("Connection error");
+		};
+
+		ourRequest.send(); */
+
+		createHTML(m);
+		function createHTML(petsData) {
+		  var raw = document.getElementById("todoTemplate").innerHTML;
+		  var compiled = Handlebars.compile(raw);
+		  var generated = compiled(petsData);
+		  var g = document.getElementById("todoContainer");
+		  g.innerHTML = generated;
+		}
+	</script>
+	<!--script>
+		var c = "dummy";
+		document.getElementById(c).addEventListener("change", a);
+		function a() {
+		    var x = document.getElementById(getId);
+		    x.value = x.value.toUpperCase();
+		    c = getId(e);
+		}
+		function getId(e)
+			{ console.log(e.target.id);
+				return e.target.id;
+			}
+	</script-->
 </body>
 </html>
