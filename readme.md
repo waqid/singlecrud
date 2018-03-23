@@ -1,8 +1,12 @@
 # Introduction
 This project was created for the purpose of creating CRUD applications on the web with only one PHP file. The additional library used is HandlebarsJS.
 
+# Libraries
+* Normalize.css
+* Handlebars.js
+
 # Contributors
-[Adwi Arifin](https://kesatriayeyboard.com/) or his [GitHub](http://github.com/adwiarifin)<br>
+[Adwi Arifin](https://kesatriakeyboard.com/) or his [GitHub](http://github.com/adwiarifin)<br>
 [Nur Waqid Muhsinin](https://waqid.id/) or his [GitHub](http://github.com/waqid)<br>
 
 # References
