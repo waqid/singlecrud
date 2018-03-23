@@ -1,2 +1,4 @@
-###html meta swicher by Göran Andersson http://jsfiddle.net/Guffa/bhnWR/ based on https://stackoverflow.com/questions/13389751/change-tag-using-javascript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-###
+# References
+* http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
+* http://www.youtube.com/watch?v=wSNa5b1mS5Y
+
