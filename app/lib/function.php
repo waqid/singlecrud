@@ -11,3 +11,8 @@ function getData($db, $sql) {
     
     return $rows;
  }
+
+ function run($db, $sql) {
+    $affected_rows = $db->exec($sql);
+    return $affected_rows;
+ }
