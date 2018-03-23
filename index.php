@@ -115,6 +115,7 @@
 	</header>
 	<main>
 		<div class="content">
+			<h3>Todo List</h3>
 			<div class="data">
 				<p>Data satu</p><button class="danger">Hapus</button>
 			</div>
