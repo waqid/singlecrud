@@ -25,51 +25,27 @@
 	<header>
 		Single File CRUD (Cek, Racocok, Uwahi, Dadi!)
 	</header>
-	<main> <!--onclick="getId(event)"-->
+	<main>
 		<div class="content">
 			<h3>Todo List</h3>
-			<!--div id=dummy></div>
-			<div class="data">
-				<form><input id="a" type="text" name="name" value="Data Satu"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
-			</div>
-			<div class="data">
-				<form><input id="b" type="text" name="name" value="Data Dua"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
-			</div>
-			<div class="data">
-				<form><input  class="each"type="text" name="name" value="Data Tiga" autofocus="autofocus"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
-			</div>
-			<div class="data">
-				<form><input class="new" type="text" name="name" placeholder="Ketik di sini"><button class="update">Tambah</button></form>
-			</div-->
 			<div id="todoContainer"></div>
 		</div>
 	</main>
 	<footer>
 		<p>Kumpul Koding Chapter I 03/23/2018 <a href="https://kesatriakeyboard.com">Kesatria Keyboard</a> and <a href="https://waqid.id">Waqid ID</a> </p>
 	</footer>
-	<script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.5/dist/handlebars.min.js"></script>
 	
-	<script>
-		var m = {
-			'pets': [
-				{
-					'name' : 'timi',
-				},{
-					'name' : 'blacko',
-				}
-				
-			]
-		}
-	</script>
-
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.5/dist/handlebars.min.js"></script>
 	<script id="todoTemplate" type="text/x-handlebars-template">
-		{{#each pets}}
-			<h1>{{name}}</h1>
+		{{#each todos}}
+			<div class="data">
+					<form><input  class="each"type="text" name="name" value="{{task}}"><button class="update">Perbarui</button><button class="danger">Hapus</button></form>
+			</div>
 		{{/each}}
 	</script>
 	<script>
-		/* var ourRequest = new XMLHttpRequest();
-		ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/pets-data.json');
+		var ourRequest = new XMLHttpRequest();
+		ourRequest.open('GET', 'http://kumpulkoding.test/view.php');
 		ourRequest.onload = function() {
 		  if (ourRequest.status >= 200 && ourRequest.status < 400) {
 		    var data = JSON.parse(ourRequest.responseText);
@@ -83,29 +59,15 @@
 		  console.log("Connection error");
 		};
 
-		ourRequest.send(); */
+		ourRequest.send();
 
-		createHTML(m);
-		function createHTML(petsData) {
+		function createHTML(fetchData) {
 		  var raw = document.getElementById("todoTemplate").innerHTML;
 		  var compiled = Handlebars.compile(raw);
-		  var generated = compiled(petsData);
+		  var generated = compiled(fetchData);
 		  var g = document.getElementById("todoContainer");
 		  g.innerHTML = generated;
 		}
 	</script>
-	<!--script>
-		var c = "dummy";
-		document.getElementById(c).addEventListener("change", a);
-		function a() {
-		    var x = document.getElementById(getId);
-		    x.value = x.value.toUpperCase();
-		    c = getId(e);
-		}
-		function getId(e)
-			{ console.log(e.target.id);
-				return e.target.id;
-			}
-	</script-->
 </body>
 </html>
