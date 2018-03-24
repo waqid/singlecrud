@@ -36,92 +36,133 @@
 		<p>Kumpul Koding Chapter I 03/23/2018 <a href="https://kesatriakeyboard.com">Kesatria Keyboard</a> and <a href="https://waqid.id">Waqid ID</a> </p>
 	</footer>
 	
+	<!-- handlebars.js core -->
 	<script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.5/dist/handlebars.min.js"></script>
+	<!-- handlebars.js custom template -->
 	<script id="todoTemplate" type="text/x-handlebars-template">
-			<div class="data">
-				<form>
-					<input type="text" id="newTask">
-					<button class="update" onclick="insertData()">Tambah</button>
-				</form>
-			</div>
+		<div class="data">
+			<form>
+				<input type="text" id="newTask">
+				<button class="update" onclick="insertData()">Tambah</button>
+			</form>
+		</div>
 		{{#each todos}}
-			<div class="data">
-				<form>
-					<input class="each" type="text" id="task_{{id}}" value="{{task}}">
-					<button class="update" onclick="updateData({{id}})">Perbarui</button>
-					<button class="danger" onclick="deleteData({{id}})">Hapus</button>
-				</form>
-			</div>
-		{{/each}}
-			
+		<div class="data">
+			<form>
+				<input class="each" type="text" id="task_{{id}}" value="{{task}}">
+				<button class="update" onclick="updateData({{id}})">Perbarui</button>
+				<button class="danger" onclick="deleteData({{id}})">Hapus</button>
+			</form>
+		</div>
+		{{/each}}	
 	</script>
+	<!-- ajax core function -->
 	<script>
-		var host = 'http://kumpulkoding.test/';
-		loadData();
-
-		function loadData() {
-			var ourRequest = new XMLHttpRequest();
-			ourRequest.open('GET', host + 'view.php', true);
-			ourRequest.onload = function() {
-			  if (ourRequest.status >= 200 && ourRequest.status < 400) {
-			    var data = JSON.parse(ourRequest.responseText);
-			    createHTML(data);
-			  } else {
-			    console.log("We connected to the server, but it returned an error.");
-			  }
-			};
-
-			ourRequest.onerror = function() {
-			  console.log("Connection error");
-			};
-
-			ourRequest.send();
+		function xwwwfurlenc(srcjson){
+			if(typeof srcjson !== "object")
+				if(typeof console !== "undefined"){
+					console.log("\"srcjson\" is not a JSON object");
+					return null;
+				}
+			u = encodeURIComponent;
+			var urljson = "";
+			var keys = Object.keys(srcjson);
+			for(var i=0; i <keys.length; i++){
+				urljson += u(keys[i]) + "=" + u(srcjson[keys[i]]);
+				if(i < (keys.length-1))urljson+="&";
+			}
+			console.log(urljson);
+			return urljson;
 		}
 
-		function postRequest(url, params) {
+		function xhrRequest(method, data) {
 			var xhr = new XMLHttpRequest();
-			var task = document.getElementById('newTask').value;
-			xhr.open('POST', url, true);
+			xhr.open(method, data.url, true);
 
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			xhr.onload = function() {
 				if (xhr.status >= 200 && xhr.status < 400) {
-					loadData();
+					var response = JSON.parse(xhr.responseText);
+					data.success(response);
 				} else {
-					alert("something error");
+					data.error();
 				}
 			}
-			xhr.send(params);
+			xhr.onerror = function() {
+				console.log('Connection Error');
+			}
+
+			if(data.params) {
+				xhr.send(xwwwfurlenc(data.params));
+			} else {
+				xhr.send();
+			}
+		}
+
+		function getRequest(data) {
+			xhrRequest('GET', data);
+		}
+
+		function postRequest(data) {
+			xhrRequest('POST', data);
+		}
+	</script>
+	<!-- custom script, call ajax -->
+	<script>
+		var host = 'http://singlecrud.test/';
+		loadData();
+
+		function loadData() {
+			getRequest({
+				url: host + 'view.php',
+				success: function(data) {
+			    	createHTML(data);
+				},
+				error: function() {
+					console.log("We connected to the server, but it returned an error.");
+				}
+			});
 		}
 
 		function insertData() {
 			event.preventDefault();
-				
-			var url = host + 'insert.php';
-			var task = document.getElementById('newTask').value;
-			var params = "task=" + encodeURIComponent(task);
-			
-			postRequest(url, params);
+			postRequest({
+				url: host + 'insert.php',
+				params: {
+					'task': document.getElementById('newTask').value
+				},
+				success: function() {
+					loadData();
+				}
+			});
 		}
 
 		function updateData(id) {
 			event.preventDefault();
-			
-			var url = host + 'update.php';
-			var task = document.getElementById('task_'+id).value;
-			var params = "id="+ id + "&task=" + encodeURIComponent(task);
-
-			postRequest(url, params);
+			postRequest({
+				url: host + 'update.php',
+				params: {
+					'id': id,
+					'task': document.getElementById('task_'+id).value
+				},
+				success: function() {
+					loadData();
+				}
+			});
 		}
 
 		function deleteData(id) {
 			event.preventDefault();
-			
-			var url = host + 'delete.php';
-			var params = "id="+ id;
-
-			postRequest(url, params);
+			postRequest({
+				url: host + 'delete.php',
+				params: {
+					'id': id
+				},
+				success: function() {
+					loadData();
+				}
+			});
 		}
 
 		function createHTML(fetchData) {
