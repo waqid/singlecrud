@@ -1,5 +1,5 @@
 # Introduction
-This project was created for the purpose of creating CRUD applications on the web with only one PHP file. The additional library are described below. To be precise, this project are part of **Kumpul Koding** Chapter 1 was been held on March 23rd 2018
+This project was created for the purpose of creating CRUD applications on the web with only one PHP file. The additional library are described below. To be precise, this project are part of **Kumpul Koding** Chapter 1 which been held on March 23rd 2018
 
 # Libraries
 * Normalize.css
